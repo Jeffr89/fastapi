@@ -29,7 +29,6 @@ def upgrade():
                existing_type=sa.BOOLEAN(),
                nullable=False,
                existing_server_default=sa.text('true'))
-    op.drop_column('posts', 'titile')
     # ### end Alembic commands ###
 
 
