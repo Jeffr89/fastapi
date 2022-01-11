@@ -38,6 +38,5 @@ def downgrade():
                existing_type=sa.BOOLEAN(),
                nullable=True,
                existing_server_default=sa.text('true'))
-    op.drop_column('posts', 'title')
     op.drop_table('votes')
     # ### end Alembic commands ###
