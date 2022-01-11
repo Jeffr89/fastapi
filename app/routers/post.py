@@ -25,7 +25,7 @@ def get_posts(
     return results
 
 @router.post(
-    "/", status_code=status.HTTP_201_CREATED, response_model=schemas.PostResponse
+    "/", status_code=status.HTTP_201_CREATED, response_model=schemas.Post
 )
 def create_posts(
     post: schemas.PostCreate,
