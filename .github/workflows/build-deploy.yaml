@@ -1,12 +1,19 @@
 name: Build and Deploy Code
 
 on: [push, pull_request]
-    
+
 jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
       - name: pulling git repo
         uses: actions/checkout@v2.4.0
-      - name: say hi
-        run: echo "Hello Jeff"
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9' # Version range or exact version of a Python version to use, using SemVer's version range syntax
+      - name: Update pip
+        uses: python -m pip install --upgrade pip
+      - name: Install dependencies
+        uses: pip install -r requirements.txt
+        
