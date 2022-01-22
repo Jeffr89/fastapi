@@ -17,6 +17,7 @@ def get_posts(
     limit: int = 10,
     skip: int = 0,
     search: Optional[str] = "",
+    current_user: models.User = Depends(oauth2.get_current_user)
 ):
     # posts = db.query(models.Post).filter(models.Post.title.contains(search)).limit(limit).offset(skip).all()
     
@@ -42,7 +43,7 @@ def create_posts(
 
 
 @router.get("/{id}", response_model=schemas.PostResponse)
-def get_post(id: int, db: Session = Depends(get_db)):
+def get_post(id: int, db: Session = Depends(get_db), current_user: models.User = Depends(oauth2.get_current_user)):
     post = db.query(models.Post).filter(models.Post.id == id).first()
     if not post:
         raise HTTPException(
@@ -77,7 +78,7 @@ def delete_post(
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
-@router.put("/{id}", response_model=schemas.PostResponse)
+@router.put("/{id}", response_model=schemas.Post)
 def update_post(
     id: int,
     post: schemas.PostCreate,
@@ -86,7 +87,7 @@ def update_post(
 ):
     updated_post = db.query(models.Post).filter(models.Post.id == id)
     checkpost = updated_post.first()
-    print("test")
+
     if not checkpost:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
@@ -100,5 +101,7 @@ def update_post(
         )
 
     updated_post.update(post.dict(), synchronize_session=False)
+    
     db.commit()
-    return updated_post.first()
+    post_ret = updated_post.first()
+    return post_ret

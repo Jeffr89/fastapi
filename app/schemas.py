@@ -18,7 +18,8 @@ class PostBase(BaseModel):
 
 
 class PostCreate(PostBase):
-    pass
+    class Config:
+        orm_mode = True
 
 
 
@@ -61,6 +62,7 @@ class Post(PostBase):
 class PostResponse(BaseModel):
     Post: Post
     votes: int
+    
 
 
 class Vote(BaseModel):
