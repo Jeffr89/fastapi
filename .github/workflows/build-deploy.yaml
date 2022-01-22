@@ -2,6 +2,16 @@ name: Build and Deploy Code
 
 on: [push, pull_request]
 
+env:
+  DATABASE_HOSTNAME: localhost
+  DATABASE_PORT: 5432
+  DATABASE_PASSWORD: password 
+  DATABASE_NAME: fastapi
+  DATABASE_USERNAME: fastapi
+  SECRET_KEY: a349eda79b1d37c7ae26a318360693fa39f0b70586a4e6b5906239e0c90bea9c
+  ALGORITHM: HS256
+  ACCESS_TOKEN_EXPIRE_MINUTES: 60
+
 jobs:
   job1:
     runs-on: ubuntu-latest
