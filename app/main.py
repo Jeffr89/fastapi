@@ -29,7 +29,7 @@ app.include_router(vote.router)
 
 @app.get("/")
 def index():
-    return {"message":"Hello World"}
+    return {"message":"Successfully deployed from CI/CD pipeline"}
 
 
 
